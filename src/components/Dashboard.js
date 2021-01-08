@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import { OurStory } from './OurStory';
 // import Shop from './Shop';
 import Blogs from './Blogs';
 import { CATALOG } from '../shared/catalog';
@@ -19,6 +20,7 @@ class Dashboard extends Component {
           return (
               <div>
                 <Header />
+                <OurStory />
                 <Blogs blogs={this.state.blogs}/>
               </div>
           )
