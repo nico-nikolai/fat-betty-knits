@@ -9,6 +9,8 @@ import {
   NavLink,
   NavbarToggler,
 } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStore, faBlog } from '@fortawesome/free-solid-svg-icons';
 
 class Header extends Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class Header extends Component {
 
   toggleNav() {
     this.setState({
-      isNavOpen: !this.state.isNaveOpen,
+      isNavOpen: !this.state.isNavOpen,
     });
   }
 
@@ -35,6 +37,12 @@ class Header extends Component {
             <div className="row">
               <div className="col">
                 <h1>Fat Betty Knits</h1>
+                <img
+                src="/assets/images/fbk-logo.webp"
+                height="100"
+                width="100"
+                alt="Fat Betty Knits Logo"
+              />
               </div>
             </div>
           </div>
@@ -42,12 +50,7 @@ class Header extends Component {
         <Navbar dark sticky="top" expand="md">
           <div className="container">
             <NavbarBrand className="mr-auto" href="/">
-              <img
-                src="/assets/images/fbk-logo.webp"
-                height="100"
-                width="100"
-                alt="Fat Betty Knits Logo"
-              />
+
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNav} />
             <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -60,20 +63,22 @@ class Header extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink href="#">
-                    <i className="fa fa-home fa-lg" />
+                    <i className="fa fa-book fa-lg" />
                     Our Story
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="#">
-                    <i className="fa fa-home fa-lg" />
-                    Home
+                    <FontAwesomeIcon icon={ faStore } />
+                    <i className="fa fa-store fa-lg" />
+                    Shop
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="#">
-                    <i className="fa fa-home fa-lg" />
-                    Home
+                    <FontAwesomeIcon icon={ faBlog } />
+                    <i className="fa fa-blog fa-lg" />
+                    Blog
                   </NavLink>
                 </NavItem>
               </Nav>
