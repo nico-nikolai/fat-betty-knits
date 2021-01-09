@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 function Footer(props) {
   return (
@@ -9,16 +10,19 @@ function Footer(props) {
             <h5>Links</h5>
             <ul className="list-unstyled">
               <li>
-                <a href="#">Home</a>
+                <Link to="/home">Home</Link>
               </li>
               <li>
-                <a href="#">Directory</a>
+                <Link to="/our-story">Our Story</Link>
               </li>
               <li>
-                <a href="#">About</a>
+                <Link to="/store">Store</Link>
               </li>
               <li>
-                <a href="#">Contact</a>
+                <Link to="/blogs">Blog</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -32,34 +36,38 @@ function Footer(props) {
             </a>{" "}
             <a
               className="btn btn-social-icon btn-facebook"
-              href="http://www.facebook.com/"
+              href="http://www.facebook.com/FatBettyKnits"
+              target="_blank"
+              rel="noreferrer"
             >
               <i className="fa fa-facebook" />
             </a>{" "}
             <a
-              className="btn btn-social-icon btn-twitter"
-              href="http://twitter.com/"
+              className="btn btn-social-icon btn-google"
+              href="http://etsy.com/"
             >
-              <i className="fa fa-twitter" />
+              <i className="fa fa-etsy" />
             </a>{" "}
             <a
-              className="btn btn-social-icon btn-google"
-              href="http://youtube.com/"
+              className="btn btn-social-icon btn-pinterest"
+              href="https://www.pinterest.com/fatbettyknits/"
+              target="_blank"
+              rel="noreferrer"
             >
-              <i className="fa fa-youtube" />
+              <i className="fa fa-pinterest" />
             </a>
           </div>
           <div className="col-sm-4 text-center">
-            <a role="button" className="btn btn-link" href="tel:+12065551234">
-              <i className="fa fa-phone" /> 1-206-555-1234
+            <a role="button" className="btn btn-link" href="tel:+15555555555">
+              <i className="fa fa-phone" /> (555)555-5555
             </a>
             <br />
             <a
               role="button"
               className="btn btn-link"
-              href="mailto:notreal@notreal.co"
+              href="mailto:hbaysinger09@gmail.com"
             >
-              <i className="fa fa-envelope-o" /> campsites@nucamp.co
+              <i className="fa fa-envelope-o" /> hbaysinger09@gmail.com
             </a>
           </div>
         </div>

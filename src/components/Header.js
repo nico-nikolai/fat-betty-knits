@@ -6,9 +6,9 @@ import {
   Navbar,
   NavbarBrand,
   NavItem,
-  NavLink,
   NavbarToggler,
 } from "reactstrap";
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore, faBlog } from '@fortawesome/free-solid-svg-icons';
 
@@ -49,36 +49,42 @@ class Header extends Component {
         </Jumbotron>
         <Navbar dark sticky="top" expand="md">
           <div className="container">
-            <NavbarBrand href="/">
-                Navigation
+            <NavbarBrand className="mr-auto" href="/">
+                <img src="/assets/images/fbk-logo.webp" height="30" width="30" alt="Fat Betty Logo"/>
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNav} />
             <Collapse isOpen={this.state.isNavOpen} navbar>
               <Nav navbar>
                 <NavItem>
-                  <NavLink href="#">
+                  <NavLink className="nav-link" to="/home">
                     <i className="fa fa-home fa-lg" />
                     Home
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">
+                  <NavLink className="nav-link" to="/our-story">
                     <i className="fa fa-book fa-lg" />
                     Our Story
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">
+                  <NavLink className="nav-link" to="/store">
                     <FontAwesomeIcon icon={ faStore } />
                     <i className="fa fa-store fa-lg" />
-                    Shop
+                    Store
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">
+                  <NavLink className="nav-link" to="/blogs">
                     <FontAwesomeIcon icon={ faBlog } />
                     <i className="fa fa-blog fa-lg" />
                     Blog
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink className="nav-link" to="/contact">
+                    <i className="fa fa-address-book fa-lg" />
+                    Contact Us
                   </NavLink>
                 </NavItem>
               </Nav>
