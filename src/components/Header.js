@@ -31,7 +31,7 @@ class Header extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <>
         <Jumbotron fluid>
           <div className="container">
             <div className="row">
@@ -39,8 +39,8 @@ class Header extends Component {
                 <h1>Fat Betty Knits</h1>
                 <img
                 src="/assets/images/fbk-logo.webp"
-                height="100"
-                width="100"
+                height="200"
+                width="200"
                 alt="Fat Betty Knits Logo"
               />
               </div>
@@ -85,7 +85,7 @@ class Header extends Component {
             </Collapse>
           </div>
         </Navbar>
-      </React.Fragment>
+      </>
     );
   }
 }

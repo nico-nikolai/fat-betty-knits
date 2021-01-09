@@ -15,7 +15,7 @@ function RenderBlogItem({ blog, onClick }) {
 function Blogs(props) {
 
     const blogEntry = props.blogs.map((blog) => {
-      return <div key={blog.id} className="col-sm-5 m-1">
+      return <div key={blog.id} className="col-sm m-1">
                 <RenderBlogItem blog={blog} onClick={props.onClick} />
              </div>;
     });

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Header from './Header';
-import { OurStory } from './OurStory';
+// import { OurStory } from './OurStory';
 // import Shop from './Shop';
 import Blogs from './Blogs';
 import BlogInfo from './BlogInfo';
+import Footer from './Footer';
 import { CATALOG } from '../shared/catalog';
 import { BLOGS } from '../shared/blogs';
 
@@ -26,9 +27,9 @@ class Dashboard extends Component {
           return (
               <div>
                 <Header />
-                <OurStory />
                 <Blogs blogs={this.state.blogs} onClick={blogId => this.onBlogSelect(blogId)}/>
                 <BlogInfo blog={this.state.blogs.filter(blog => blog.id === this.state.selectedBlog)[0]}/>
+                <Footer />
               </div>
           )
       }

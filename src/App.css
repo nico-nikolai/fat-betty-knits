@@ -2,19 +2,47 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-h1, h2, h3 {
-  font-family: "Open Sans Condensed", cursive;
+h1, h2, h3, .card-body>.card-title {
+  font-family: "Open Sans Condensed", sans-serif;
   font-weight: bold;
 }
 
+.card-img-overlay { 
+  display: flex;
+  align-items: flex-end;
+}
+
 .card-img-overlay .card-title {
-  font : 500 1.25rem "Open Sans Condensed", sans-serif;
+  font : 500 1.5rem "Open Sans Condensed", sans-serif;
   font-weight: bold;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .card-title {
-  font: 500 1.25rem "Open Sans Condensed", sans-serif;
+  font-size: 1.25rem;
   font-weight: bold;
+}
+
+.jumbotron {
+  background-color: #1178a8;
+  color: white;
+  margin: 0;
+  padding: 30px;
+  text-align: center;
+}
+
+.row-content {
+  padding: 50px 0;
+  border-bottom: 1px ridge;
+  min-height: 200px;
+}
+
+.navbar-dark {
+  background-color: rgb(199, 187, 21);
+}
+
+.site-footer {
+  background-color: rgb(199, 187, 21);
+  padding: 20px 0;
 }

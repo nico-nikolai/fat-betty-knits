@@ -3,7 +3,7 @@ import { Button, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap
 
     function RenderBlog({blog}) {
         return (
-            <div className="col-md-5 m-1">
+            <div className="col-sm m-1">
                 <Card>
                     <CardImg top src={blog.image} alt={blog.name} />
                         <CardBody>
