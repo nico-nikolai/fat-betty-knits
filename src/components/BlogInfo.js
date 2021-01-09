@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap';
 
-class BlogInfo extends Component {
-
-    renderBlog(blog) {
+    function RenderBlog({blog}) {
         return (
             <div className="col-md-5 m-1">
                 <Card>
@@ -17,18 +15,17 @@ class BlogInfo extends Component {
             </div>
         )
     }
-    render() {
-        if (this.props.blog) {
+    function BlogInfo(props) {
+        if (props.blog) {
             return (
                 <div className="container">
                     <div className="row">
-                        {this.renderBlog(this.props.blog)}
+                        <RenderBlog blog={props.blog}/>
                     </div>
                 </div>
             )
         }
         return <div/>
     }
-}
 
 export default BlogInfo;
