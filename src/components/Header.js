@@ -4,7 +4,6 @@ import {
   Jumbotron,
   Nav,
   Navbar,
-  NavbarBrand,
   NavItem,
   NavbarToggler,
 } from "reactstrap";
@@ -49,12 +48,10 @@ class Header extends Component {
         </Jumbotron>
         <Navbar dark sticky="top" expand="md">
           <div className="container">
-            <NavbarBrand className="mr-auto" href="/">
-                <img src="/assets/images/fbk-logo.webp" height="30" width="30" alt="Fat Betty Logo"/>
-            </NavbarBrand>
+
             <NavbarToggler onClick={this.toggleNav} />
             <Collapse isOpen={this.state.isNavOpen} navbar>
-              <Nav navbar>
+              <Nav navbar className="navbar-brand-center">
                 <NavItem>
                   <NavLink className="nav-link" to="/home">
                     <i className="fa fa-home fa-lg" />

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Home from './Home';
 import { OurStory } from './OurStory';
+import Contact from './Contact';
 // import Shop from './Shop';
 import Blogs from './Blogs';
 // import BlogInfo from './BlogInfo';
@@ -33,7 +34,8 @@ class Dashboard extends Component {
                 <Header />
                 <Switch>
                   <Route path="/home" component={HomePage} />
-                  <Route path="/our-story" component={OurStory} />
+                  <Route exact path="/our-story" component={OurStory} />
+                  <Route exact path="/contact" component={Contact} />
                   <Route exact path='/blogs' render={() => <Blogs blogs={this.state.blogs} />} />
                   <Redirect to="/home" />
                 </Switch>

@@ -42,7 +42,18 @@ h1, h2, h3, .card-body>.card-title {
   background-color: rgb(199, 187, 21);
 }
 
+.navbar-brand-center {
+  display: inline-flex;
+  margin: 0 auto;
+  padding: 0;
+}
 .site-footer {
   background-color: rgb(199, 187, 21);
   padding: 20px 0;
 }
+
+/* .contact-container h2 {
+  align-content: center;
+  margin-left: 490px;
+  padding: 0;
+} */
