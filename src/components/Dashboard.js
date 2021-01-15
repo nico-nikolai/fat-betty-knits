@@ -3,7 +3,7 @@ import Header from './Header';
 import Home from './Home';
 import { OurStory } from './OurStory';
 import Contact from './Contact';
-// import Shop from './Shop';
+import Store from './Store';
 import Blogs from './Blogs';
 // import BlogInfo from './BlogInfo';
 import Footer from './Footer';
@@ -25,7 +25,11 @@ class Dashboard extends Component {
 
           const HomePage = () => {
             return (
-              <Home />
+              <Home 
+                catalog={this.state.catalog.filter(catalog => catalog.featured)[0]}
+                catalogTwo={this.state.catalog.filter(catalog => catalog.featured)[1]}
+                blogs={this.state.blogs.filter(blog => blog.featured)[0]}
+              />
             )
           }
 
@@ -35,8 +39,9 @@ class Dashboard extends Component {
                 <Switch>
                   <Route path="/home" component={HomePage} />
                   <Route exact path="/our-story" component={OurStory} />
-                  <Route exact path="/contact" component={Contact} />
+                  <Route exact path="/store" render={() => <Store catalog={this.state.catalog} />} />
                   <Route exact path='/blogs' render={() => <Blogs blogs={this.state.blogs} />} />
+                  <Route exact path="/contact" component={Contact} />
                   <Redirect to="/home" />
                 </Switch>
                 <Footer />

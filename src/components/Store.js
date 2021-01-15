@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-class Shop extends Component {
+class Store extends Component {
 
     render() {
         const catalog = this.props.catalog.map(item => {
             return (
-                <div key={item.id} className="col">
+                <div key={item.id} className="col-sm-6">
                     <img src={item.image} alt={item.name} />
                     <h2>{item.name}</h2>
                     <p>{item.description}</p>
@@ -14,7 +14,7 @@ class Shop extends Component {
         })
         return (
             <div className="container">
-                <div className="row">
+                <div className="row store">
                     {catalog}
                 </div>
             </div>
@@ -22,4 +22,4 @@ class Shop extends Component {
     }
 }
 
-export default Shop;
+export default Store;

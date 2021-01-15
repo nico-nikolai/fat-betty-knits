@@ -52,8 +52,6 @@ h1, h2, h3, .card-body>.card-title {
   padding: 20px 0;
 }
 
-/* .contact-container h2 {
-  align-content: center;
-  margin-left: 490px;
-  padding: 0;
-} */
+.store {
+  margin-top: 20px;
+}
