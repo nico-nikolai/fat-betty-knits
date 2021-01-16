@@ -1,13 +1,16 @@
 import React from "react";
 import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
+import { Link } from 'react-router-dom';
 
 function RenderBlogItem({ blog }) {
   return (
     <Card>
-      <CardImg width="100%" src={blog.image} alt={blog.name} />
-      <CardImgOverlay>
-        <CardTitle>{blog.name}</CardTitle>
-      </CardImgOverlay>
+      <Link to={`/blogs/${blog.id}`}>
+        <CardImg width="100%" src={blog.image} alt={blog.name} />
+        <CardImgOverlay>
+          <CardTitle>{blog.name}</CardTitle>
+        </CardImgOverlay>
+      </Link>
     </Card>
   );
 }
