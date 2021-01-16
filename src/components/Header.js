@@ -75,7 +75,7 @@ class Header extends Component {
                   <NavLink className="nav-link" to="/blogs">
                     <FontAwesomeIcon icon={ faBlog } />
                     <i className="fa fa-blog fa-lg" />
-                    Blog
+                    Blogs
                   </NavLink>
                 </NavItem>
                 <NavItem>

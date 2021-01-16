@@ -6,9 +6,11 @@ import Contact from './Contact';
 import Store from './Store';
 import Blogs from './Blogs';
 import BlogInfo from './BlogInfo';
+import StoreItem from './StoreItem';
 import Footer from './Footer';
 import { CATALOG } from '../shared/catalog';
 import { BLOGS } from '../shared/blogs';
+import { DESCRIPTIONS } from '../shared/descriptions';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 class Dashboard extends Component {
@@ -18,6 +20,7 @@ class Dashboard extends Component {
         this.state = {
           catalog: CATALOG,
           blogs: BLOGS,
+          descriptions: DESCRIPTIONS
         }
       }
 
@@ -39,6 +42,15 @@ class Dashboard extends Component {
             )
           }
 
+          const StoreWithId = ({match}) => {
+            return (
+              <StoreItem 
+                item={this.state.catalog.filter(item => item.id === +match.params.itemId)[0]} 
+                description={this.state.descriptions.filter(description => description.id === +match.params.itemId)[0]}
+              />
+            )
+          }
+
           return (
               <div>
                 <Header />
@@ -48,6 +60,7 @@ class Dashboard extends Component {
                   <Route exact path="/store" render={() => <Store catalog={this.state.catalog} />} />
                   <Route exact path='/blogs' render={() => <Blogs blogs={this.state.blogs} />} />
                   <Route path='/blogs/:blogId' component={BlogWithId} />
+                  <Route path='/store/:itemId' component={StoreWithId} />
                   <Route exact path="/contact" component={Contact} />
                   <Redirect to="/home" />
                 </Switch>

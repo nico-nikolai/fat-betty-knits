@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
+
+function RenderStoreItem({item}) {
+    return (
+        <Card>
+            <Link to={`/store/${item.id}`}>
+            <CardImg width="100%" src={item.image} alt={item.name} />
+            <CardImgOverlay>
+                <CardTitle>{item.name}</CardTitle>
+            </CardImgOverlay>
+            </Link>
+      </Card>
+    )
+}
 class Store extends Component {
 
     render() {
         const catalog = this.props.catalog.map(item => {
             return (
                 <div key={item.id} className="col-sm-6">
-                    <img src={item.image} alt={item.name} />
-                    <h2>{item.name}</h2>
-                    <p>{item.description}</p>
+                    <RenderStoreItem item={item} />
                 </div>
             )
         })
