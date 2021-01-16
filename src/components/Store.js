@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 class Store extends Component {
 
@@ -14,6 +16,16 @@ class Store extends Component {
         })
         return (
             <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>Store</BreadcrumbItem>
+                        </Breadcrumb>
+                        <h2 className="d-flex justify-content-center">Store</h2>
+                        <hr />
+                    </div>
+                </div>
                 <div className="row store">
                     {catalog}
                 </div>

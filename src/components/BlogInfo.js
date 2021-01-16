@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap';
-
+import { Breadcrumb, BreadcrumbItem, Button, Card, CardImg, CardBody, CardText } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
     function RenderBlog({blog}) {
@@ -10,7 +10,6 @@ import { Button, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap
                 <Card>
                     <CardImg top src={blog.image} alt={blog.name} />
                     <CardBody>
-                        <CardTitle>{blog.name}</CardTitle>
                         <CardText>{blog.description}</CardText>
                         <Button>Read On!</Button>
                     </CardBody>
@@ -22,6 +21,17 @@ import { Button, Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap
         if (blog) {
             return (
                 <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <Breadcrumb>
+                                <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                                <BreadcrumbItem><Link to="/blogs">Blogs</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>{blog.name}</BreadcrumbItem>
+                            </Breadcrumb>
+                            <h2 className="d-flex justify-content-center">{blog.name}</h2>
+                            <hr />
+                        </div>
+                    </div>
                     <div className="row">
                         <RenderBlog blog={blog}/>
                     </div>
