@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
         return (
             <div className="col-sm m-1">
                 <Card>
-                    <CardImg top src={blog.image} alt={blog.name} />
+                    <CardImg top src={"/" + blog.image} alt={blog.name} />
                     <CardBody>
                         <CardText>{blog.description}</CardText>
                         <Button>Read On!</Button>

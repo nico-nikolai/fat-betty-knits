@@ -7,7 +7,7 @@ function RenderItem({item}) {
     return (
         <div className="col-sm m-1">
             <Card>
-                <CardImg top src={item.image} alt={item.name} />
+                <CardImg top src={"/" + item.image} alt={item.name} />
                 <CardBody>
                     <CardText>{item.description}</CardText>
                     <Button>Add To Cart</Button>
