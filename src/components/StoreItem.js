@@ -1,11 +1,105 @@
-import React from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Card, CardImg, CardBody, CardText } from 'reactstrap';
+import React, { Component } from 'react';
+import { Breadcrumb, BreadcrumbItem, Button, Card, CardImg, CardBody, CardText, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
+
+class PostReview extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            agree: false,
+            review: ''
+        };
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        console.log('Current state is: ' + JSON.stringify(this.state));
+
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <div className="row row-content">
+                    <div className="col-12">
+                        <h2>Leave a Review</h2>
+                        <hr />
+                    </div>
+                    <div className="col-md-10">
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormGroup row>
+                                <Label htmlFor="firstName" md={2}>First Name</Label>
+                                <Col md={10}>
+                                    <Input type="text" id="firstName" name="firstName" placeholder="First Name" value={this.state.firstName} onChange={this.handleInputChange} />
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="lastName" md={2}>Last Name</Label>
+                                <Col md={10}>
+                                    <Input type="text" id="lastName" name="lastName" placeholder="Last Name" value={this.state.lastName} onChange={this.handleInputChange} />
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="email" md={2}>Email</Label>
+                                <Col md={10}>
+                                    <Input type="text" id="email" name="email" placeholder="Email" value={this.state.email} onChange={this.handleInputChange} />
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Col md={{ size: 4, offset: 2 }}>
+                                    <FormGroup check>
+                                        <Label check>
+                                            <Input type="checkbox" name="agree" checked={this.state.agree} onChange={this.handleInputChange} />
+                                            {' '}
+                                            <strong>Agree to Contact From Us</strong>
+                                        </Label>
+                                    </FormGroup>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label htmlFor="review" md={2}>Your Review</Label>
+                                <Col md={10}>
+                                    <Input type="textarea" id="review" name="review" rows="10" value={this.state.review} onChange={this.handleInputChange}>
+                                    </Input>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Col md={{ size: 10, offset: 2 }}>
+                                    <Button type="submit" color="primary">
+                                        Post Review
+                                    </Button>
+                                </Col>
+                            </FormGroup>
+
+                        </Form>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
 
 function RenderItem({item}) {
     console.log(item)
     return (
-        <div className="col-sm m-1">
+        <div className="col-sm-6 m-1">
             <Card>
                 <CardImg top src={"/" + item.image} alt={item.name} />
                 <CardBody>
@@ -20,7 +114,7 @@ function RenderItem({item}) {
 function RenderDescription({description}) {
     console.log(description)
     return (
-        <div className="col">
+        <div className="col-sm">
             {description.text}
             <br />
             <br />
@@ -55,6 +149,7 @@ function StoreItem({item, description}) {
                 <div className="row">
                     <RenderItem item={item}/>
                     <RenderDescription description={description}/>
+                    <PostReview />
                 </div>
             </div>
         )

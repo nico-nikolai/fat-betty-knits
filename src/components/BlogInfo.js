@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
     function RenderBlog({blog}) {
         console.log(blog)
         return (
-            <div className="col-sm m-1">
+            <div className="col-sm-4">
                 <Card>
                     <CardImg top src={"/" + blog.image} alt={blog.name} />
                     <CardBody>
