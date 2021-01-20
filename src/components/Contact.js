@@ -8,6 +8,7 @@ import {
   Label,
   Input,
   Col,
+  FormFeedback
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -19,7 +20,12 @@ class Contact extends Component {
       firstName: "",
       lastName: "",
       email: "",
-      agree: false
+      agree: false, 
+      touched: {
+          firstName: false,
+          lastName: false,
+          email: false
+      }
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -40,7 +46,48 @@ class Contact extends Component {
     console.log("Current state is: " + JSON.stringify(this.state));
     event.preventDefault();
   }
+
+  handleBlur = (field) => () => {
+    this.setState({
+        touched: {...this.state.touched, [field]: true }
+    });
+  }
+
+  validate(firstName, lastName, email) {
+
+    const errors = {
+        firstName: '',
+        lastName: '',
+        email: ''
+    };
+
+    if (this.state.touched.firstName) {
+        if (firstName.length < 2) {
+            errors.firstName = "First name must be at least 2 characters.";
+        } else if (firstName.length > 15) {
+            errors.firstName = "First name must be 15 or less characters.";
+        }
+    }
+
+    if (this.state.touched.lastName) {
+        if (lastName.length < 2) {
+            errors.lastName = "Last name must be at least 2 characters.";
+        } else if (lastName.length > 15) {
+            errors.lastName = "Last name must be 15 or less characters.";
+        }
+    }
+
+    if (this.state.touched.email && !email.includes('@')) {
+        errors.email = 'Email should contain a @';
+    }
+
+    return errors;
+  }
+
   render() {
+
+    const errors = this.validate(this.state.firstName, this.state.lastName, this.state.email);
+
     return (
       <div className="container">
         <div className="row">
@@ -99,8 +146,11 @@ class Contact extends Component {
                     name="firstName"
                     placeholder="First Name"
                     value={this.state.firstName}
+                    invalid={errors.firstName}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur("firstName")}
                   />
+                  <FormFeedback>{errors.firstName}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -114,8 +164,11 @@ class Contact extends Component {
                     name="lastName"
                     placeholder="Last Name"
                     value={this.state.lastName}
+                    invalid={errors.lastName}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur("lastName")}
                   />
+                  <FormFeedback>{errors.lastName}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
@@ -129,8 +182,11 @@ class Contact extends Component {
                     name="email"
                     placeholder="Email"
                     value={this.state.email}
+                    invalid={errors.email}
                     onChange={this.handleInputChange}
+                    onBlur={this.handleBlur("email")}
                   />
+                  <FormFeedback>{errors.email}</FormFeedback>
                 </Col>
               </FormGroup>
               <FormGroup row>
