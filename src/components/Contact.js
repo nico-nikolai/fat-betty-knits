@@ -32,26 +32,7 @@ class Contact extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleInputChange(event) {
-    const target = event.target;
-    const name = target.name;
-    const value = target.type === "checkbox" ? target.checked : target.value;
 
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  handleSubmit(event) {
-    console.log("Current state is: " + JSON.stringify(this.state));
-    event.preventDefault();
-  }
-
-  handleBlur = (field) => () => {
-    this.setState({
-        touched: {...this.state.touched, [field]: true }
-    });
-  }
 
   validate(firstName, lastName, email) {
 
@@ -80,8 +61,29 @@ class Contact extends Component {
     if (this.state.touched.email && !email.includes('@')) {
         errors.email = 'Email should contain a @';
     }
-
+console.log(errors)
     return errors;
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  handleSubmit(event) {
+    console.log("Current state is: " + JSON.stringify(this.state));
+    event.preventDefault();
+  }
+
+  handleBlur = (field) => () => {
+    this.setState({
+        touched: {...this.state.touched, [field]: true }
+    });
   }
 
   render() {

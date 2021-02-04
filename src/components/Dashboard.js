@@ -8,45 +8,42 @@ import Blogs from './Blogs';
 import BlogInfo from './BlogInfo';
 import StoreItem from './StoreItem';
 import Footer from './Footer';
-import { CATALOG } from '../shared/catalog';
-import { BLOGS } from '../shared/blogs';
-import { DESCRIPTIONS } from '../shared/descriptions';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+const mapStateToProps = state => {
+  return {
+    catalog: state.catalog,
+    blogs: state.blogs,
+    descriptions: state.descriptions
+  }
+}
 
 class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-          catalog: CATALOG,
-          blogs: BLOGS,
-          descriptions: DESCRIPTIONS
-        }
-      }
 
       render() {
 
           const HomePage = () => {
             return (
               <Home 
-                catalog={this.state.catalog.filter(catalog => catalog.featured)[0]}
-                catalogTwo={this.state.catalog.filter(catalog => catalog.featured)[1]}
-                blogs={this.state.blogs.filter(blog => blog.featured)[0]}
+                catalog={this.props.catalog.filter(catalog => catalog.featured)[0]}
+                catalogTwo={this.props.catalog.filter(catalog => catalog.featured)[1]}
+                blogs={this.props.blogs.filter(blog => blog.featured)[0]}
               />
             )
           }
 
           const BlogWithId = ({match}) => {
             return (
-              <BlogInfo blog={this.state.blogs.filter(blog => blog.id === +match.params.blogId)[0]} />
+              <BlogInfo blog={this.props.blogs.filter(blog => blog.id === +match.params.blogId)[0]} />
             )
           }
 
           const StoreWithId = ({match}) => {
             return (
               <StoreItem 
-                item={this.state.catalog.filter(item => item.id === +match.params.itemId)[0]} 
-                description={this.state.descriptions.filter(description => description.id === +match.params.itemId)[0]}
+                item={this.props.catalog.filter(item => item.id === +match.params.itemId)[0]} 
+                description={this.props.descriptions.filter(description => description.id === +match.params.itemId)[0]}
               />
             )
           }
@@ -57,8 +54,8 @@ class Dashboard extends Component {
                 <Switch>
                   <Route path="/home" component={HomePage} />
                   <Route exact path="/our-story" component={OurStory} />
-                  <Route exact path="/store" render={() => <Store catalog={this.state.catalog} />} />
-                  <Route exact path='/blogs' render={() => <Blogs blogs={this.state.blogs} />} />
+                  <Route exact path="/store" render={() => <Store catalog={this.props.catalog} />} />
+                  <Route exact path='/blogs' render={() => <Blogs blogs={this.props.blogs} />} />
                   <Route path='/blogs/:blogId' component={BlogWithId} />
                   <Route path='/store/:itemId' component={StoreWithId} />
                   <Route exact path="/contact" component={Contact} />
@@ -69,4 +66,5 @@ class Dashboard extends Component {
           )
       }
 }
-export default Dashboard;
+
+export default withRouter(connect(mapStateToProps)(Dashboard));
