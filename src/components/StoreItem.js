@@ -8,6 +8,9 @@ import {
   CardBody,
   CardText,
   Label,
+  Modal,
+  ModalHeader,
+  ModalBody,
   Col,
   Row,
 } from "reactstrap";
@@ -36,8 +39,16 @@ class PostReview extends Component {
         lastName: false,
         email: false,
       },
+      isModalOpen: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal() {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen
+    });
   }
 
   handleSubmit(values) {
@@ -46,18 +57,44 @@ class PostReview extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row row-content">
-          <div className="col-12">
-            <h2>Leave a Review</h2>
-            <hr />
-          </div>
-          <div className="col-md-10">
+      <div>
+      
+      <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+        <ModalHeader toggle={this.toggleModal}>Leave a Review</ModalHeader>
             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
               <Row className="form-group">
-                <Label htmlFor="firstName" md={2}>
-                  First Name
+                <Label htmlFor="rating" md={2}>
+                  Rating
                 </Label>
+                <Col md={10}>
+                  <Control.select
+                    model=".rating"
+                    id="rating"
+                    name="rating"
+                    placeholder="Please rate 1-5 stars"
+                    className="form-control"
+                    validators={{
+                      required
+                    }}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </Control.select>
+                  <Errors
+                    className="text-danger"
+                    model=".rating"
+                    show="touched"
+                    component="div"
+                    messages={{
+                      required: "Required"
+                    }}
+                  />
+                </Col>
+              </Row>
+              <Row>
                 <Col md={10}>
                   <Control.text
                     model=".firstName"
@@ -84,108 +121,15 @@ class PostReview extends Component {
                   />
                 </Col>
               </Row>
-              <Row className="form-group">
-                <Label htmlFor="lastName" md={2}>
-                  Last Name
-                </Label>
-                <Col md={10}>
-                  <Control.text
-                    model=".lastName"
-                    className="form-control"
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Last Name"
-                    validators={{
-                      required,
-                      minLength: minLength(2),
-                      maxLength: maxLength(15),
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".lastName"
-                    show="touched"
-                    component="div"
-                    messages={{
-                      required: "Required",
-                      minLength: "Must be at least 2 characters",
-                      maxLength: "Must be at least 15 characters",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row className="form-group">
-                <Label htmlFor="email" md={2}>
-                  Email
-                </Label>
-                <Col md={10}>
-                  <Control.text
-                    model=".email"
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    validators={{
-                      required,
-                      validEmail,
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".email"
-                    show="touched"
-                    component="div"
-                    messages={{
-                      required: "Required",
-                      validEmail: "Invalid email address",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row className="form-group">
-                <Col md={{ size: 4, offset: 2 }}>
-                  <div className="form-check">
-                    <Label check>
-                      <Control.checkbox
-                        model=".agree"
-                        className="form-check-input"
-                        name="agree"
-                      />{" "}
-                      <strong>Agree to Contact From Us</strong>
-                    </Label>
-                  </div>
-                </Col>
-              </Row>
-              <Row className="form-group">
-                <Label htmlFor="review" md={2}>
-                  Your Review
-                </Label>
-                <Col md={10}>
-                  <Control.textarea
-                    model=".review"
-                    id="review"
-                    name="review"
-                    rows="10"
-                    className="form-control"
-                  />
-                </Col>
-              </Row>
-              <Row className="form-group">
-                <Col md={{ size: 10, offset: 2 }}>
-                  <Button type="submit" color="primary">
-                    Post Review
-                  </Button>
-                </Col>
-              </Row>
             </LocalForm>
-          </div>
-        </div>
+      </Modal>
+
       </div>
     );
   }
 }
 
-function RenderItem({ item }) {
+function RenderItem({ item, onClick }) {
   console.log(item);
   return (
     <div className="col-sm-6 m-1">
@@ -193,7 +137,8 @@ function RenderItem({ item }) {
         <CardImg top src={"/" + item.image} alt={item.name} />
         <CardBody>
           <CardText>{item.description}</CardText>
-          <Button>Add To Cart</Button>
+          <Button color="success">Add To Cart</Button>{' '}
+          <Button color="primary">Leave a Review</Button>
         </CardBody>
       </Card>
     </div>
@@ -223,28 +168,34 @@ function RenderDescription({ description }) {
 function StoreItem({ item, description }) {
   if (item) {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <Breadcrumb>
-              <BreadcrumbItem>
-                <Link to="/home">Home</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem>
-                <Link to="/store">Store</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem active>{item.name}</BreadcrumbItem>
-            </Breadcrumb>
-            <h2 className="d-flex justify-content-center">{item.name}</h2>
-            <hr />
+      <React.Fragment>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <Breadcrumb>
+                <BreadcrumbItem>
+                  <Link to="/home">Home</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem>
+                  <Link to="/store">Store</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>{item.name}</BreadcrumbItem>
+              </Breadcrumb>
+              <h2 className="d-flex justify-content-center">{item.name}</h2>
+              <hr />
+            </div>
+          </div>
+          <div className="row">
+            <RenderItem item={item} />
+            <RenderDescription description={description} />
           </div>
         </div>
-        <div className="row">
-          <RenderItem item={item} />
-          <RenderDescription description={description} />
-          <PostReview />
-        </div>
-      </div>
+          <div className="container">
+            <div className="row">
+            <PostReview />
+            </div>
+          </div>
+      </React.Fragment>
     );
   }
   return <div />;
