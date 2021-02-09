@@ -11,16 +11,14 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  Col,
-  Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 
+
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
-const isNumber = (val) => !isNaN(+val);
 const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
@@ -42,10 +40,10 @@ class PostReview extends Component {
       isModalOpen: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleReviewModal = this.toggleReviewModal.bind(this);
   }
 
-  toggleModal() {
+  toggleReviewModal() {
     this.setState({
       isModalOpen: !this.state.isModalOpen
     });
@@ -53,83 +51,137 @@ class PostReview extends Component {
 
   handleSubmit(values) {
     console.log("Current state is: " + JSON.stringify(values));
+    alert("Current state is: " + JSON.stringify(values));
   }
 
   render() {
     return (
-      <div>
-      
-      <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-        <ModalHeader toggle={this.toggleModal}>Leave a Review</ModalHeader>
+      <React.Fragment>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <Button color="success">Add To Cart  <i className="fa fa-shopping-cart fa-lg" /></Button>{''}
+          </div>
+          <div className="col">
+            <Button color="primary" onClick={this.toggleReviewModal}>Leave a Review  <i className="fa fa-comments fa-lg"/></Button>
+          </div>
+        </div>
+      </div>
+      <Modal isOpen={this.state.isModalOpen} toggle={this.toggleReviewModal}>
+        <ModalHeader toggle={this.toggleReviewModal}>Leave a Review</ModalHeader>
+          <ModalBody>
             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-              <Row className="form-group">
-                <Label htmlFor="rating" md={2}>
-                  Rating
+              <div className="form-group">
+                <Label htmlFor="rating">
+                  Please Rate from 1-5
                 </Label>
-                <Col md={10}>
-                  <Control.select
-                    model=".rating"
-                    id="rating"
-                    name="rating"
-                    placeholder="Please rate 1-5 stars"
-                    className="form-control"
-                    validators={{
-                      required
-                    }}
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </Control.select>
-                  <Errors
-                    className="text-danger"
-                    model=".rating"
-                    show="touched"
-                    component="div"
-                    messages={{
-                      required: "Required"
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col md={10}>
+                <Control.select
+                  model=".rating"
+                  id="rating"
+                  name="rating"
+                  className="form-control"
+                >
+                  <option value="">1-5</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </Control.select>
+              </div>
+              <div className="form-group">
+                <Control.text
+                  model=".firstName"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  className="form-control"
+                  validators={{
+                    required,
+                    minLength: minLength(2),
+                    maxLength: maxLength(15),
+                  }}
+                />
+                <Errors
+                  className="text-danger"
+                  model=".firstName"
+                  show="touched"
+                  component="div"
+                  messages={{
+                    required: "Required",
+                    minLength: "Must be at least 2 characters",
+                    maxLength: "Must be 15 characters or less",
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <Control.text
+                  model=".lastName"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                  className="form-control"
+                  validators={{
+                    required,
+                    minLength: minLength(2),
+                    maxLength: maxLength(15),
+                  }}
+                />
+                <Errors
+                  className="text-danger"
+                  model=".lastName"
+                  show="touched"
+                  component="div"
+                  messages={{
+                    required: "Required",
+                    minLength: "Must be at least 2 characters",
+                    maxLength: "Must be 15 characters or less",
+                  }}
+                />
+              </div>
+              <div className="form-group">
                   <Control.text
-                    model=".firstName"
-                    id="firstName"
-                    name="firstName"
-                    placeholder="First Name"
+                    model=".email"
                     className="form-control"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
                     validators={{
                       required,
-                      minLength: minLength(2),
-                      maxLength: maxLength(15),
+                      validEmail,
                     }}
                   />
                   <Errors
                     className="text-danger"
-                    model=".firstName"
+                    model=".email"
                     show="touched"
                     component="div"
                     messages={{
                       required: "Required",
-                      minLength: "Must be at least 2 characters",
-                      maxLength: "Must be at least 15 characters",
+                      validEmail: "Invalid email address"
                     }}
                   />
-                </Col>
-              </Row>
+              </div>
+              <div className="form-group">
+                <Control.textarea
+                  model=".review"
+                  id="review"
+                  name="review"
+                  placeholder="Your Review"
+                  rows="6"
+                  className="form-control"
+                />
+              </div>
+              <Button type="submit" value="submit" color="primary">Post Review</Button>
             </LocalForm>
-      </Modal>
-
-      </div>
+          </ModalBody>
+        </Modal>
+      </React.Fragment>
     );
   }
 }
 
-function RenderItem({ item, onClick }) {
+function RenderItem({ item }) {
   console.log(item);
   return (
     <div className="col-sm-6 m-1">
@@ -137,8 +189,7 @@ function RenderItem({ item, onClick }) {
         <CardImg top src={"/" + item.image} alt={item.name} />
         <CardBody>
           <CardText>{item.description}</CardText>
-          <Button color="success">Add To Cart</Button>{' '}
-          <Button color="primary">Leave a Review</Button>
+
         </CardBody>
       </Card>
     </div>
@@ -188,13 +239,9 @@ function StoreItem({ item, description }) {
           <div className="row">
             <RenderItem item={item} />
             <RenderDescription description={description} />
+            <PostReview />
           </div>
         </div>
-          <div className="container">
-            <div className="row">
-            <PostReview />
-            </div>
-          </div>
       </React.Fragment>
     );
   }
