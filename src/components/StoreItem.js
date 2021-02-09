@@ -172,7 +172,7 @@ class PostReview extends Component {
                   className="form-control"
                 />
               </div>
-              <Button type="submit" value="submit" color="primary">Post Review</Button>
+              <Button type="submit" value="submit" color="primary" onClick={this.toggleReviewModal}>Post Review</Button>
             </LocalForm>
           </ModalBody>
         </Modal>
