@@ -1,0 +1,29 @@
+[33m5a8bbde[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Combined Reducers
+[33mf454768[m Modal work in Store - Need to fix cart modal!
+[33mb8dc433[m Fixed Modal to close on submit
+[33me271447[m Review Modal
+[33m8d3abb2[m Commit before testing
+[33m18678fc[m Form Validation
+[33mcad1c6c[m React Redux Form
+[33m0972b14[m Integrating Redux
+[33m8c8f4ca[m Form Validation
+[33md66b698[m Added Controlled Forms
+[33m7226de4[m Fixed file paths for images
+[33mb51d297[m Individual Store Items with Descriptions
+[33mda411f5[m Breadcrumbs
+[33mefa7361[m React Router for Individual Blogs
+[33m3472461[m Home Page Cards
+[33me8a8372[m Styling Footer and Contact components
+[33md870403[m React Router start
+[33mcd554ab[m Header and Footer
+[33m4838800[m Refactor to functional components
+[33ma229809[m Refactored to presentational components
+[33mba7d43a[m Added OurStory component
+[33m6a222c5[m Card Styling
+[33mf6a1ff5[m Added Blogs.js and Dashboard.js
+[33mea4e1ff[m Added Shop-Need to move
+[33mf9a4c67[m Naming updates
+[33m4343efb[m Font Awesome
+[33mc2110a2[m Configuring App
+[33m28ebf41[m First Commit
+[33ma45e302[m Initialize project using Create React App
