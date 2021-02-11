@@ -31,7 +31,7 @@ class PostReview extends Component {
       lastName: "",
       email: "",
       agree: false,
-      text: "",
+      review: "",
       touched: {
         firstName: false,
         lastName: false,
@@ -60,8 +60,6 @@ class PostReview extends Component {
   }
 
   handleSubmit(values) {
-    this.toggleReviewModal();
-    this.props.addReview(this.props.itemId, values.rating, values.firstName, values.lastName, values.text)
     console.log("Current state is: " + JSON.stringify(values));
     alert("Current state is: " + JSON.stringify(values));
   }
@@ -183,9 +181,9 @@ class PostReview extends Component {
               </div>
               <div className="form-group">
                 <Control.textarea
-                  model=".text"
-                  id="text"
-                  name="text"
+                  model=".review"
+                  id="review"
+                  name="review"
                   placeholder="Your Review"
                   rows="6"
                   className="form-control"
@@ -199,8 +197,6 @@ class PostReview extends Component {
     );
   }
 }
-
-
 
 function RenderItem({ item }) {
   console.log(item);
@@ -217,15 +213,15 @@ function RenderItem({ item }) {
   );
 }
 
-// function CartModal({ item }) {
-//   return (
-//     <div className="container">
-//       <div className="row">
-//         {item.name}
-//       </div>
-//     </div>
-//   )
-// }
+function CartModal({ item }) {
+  return (
+    <div className="container">
+      <div className="row">
+        {item.name}
+      </div>
+    </div>
+  )
+}
 
 function RenderDescription({ description }) {
   console.log(description);
@@ -247,30 +243,8 @@ function RenderDescription({ description }) {
     </div>
   );
 }
-
-function RenderReviews({reviews, addReview, itemId}) {
-  if (reviews) {
-    return (
-      <div className="col-md-5 m-1">
-        <h4>Reviews</h4>
-        {reviews.map(review => {
-          return (
-            <div key={review.id}>
-              <p>{review.text}<br />
-                -- {review.firstName}{' '}{review.lastName}, {new Intl.DateTimeFormat('en-US', { year: 'numeric',
-                month: 'short', day: '2-digit' }).format(new Date(Date.parse(review.date)))}
-              </p>
-            </div>
-          );
-        })}
-        <PostReview itemId={itemId} addReview={addReview}/>
-      </div>
-    )
-  } 
-}
-
-function StoreItem(props) {
-  if (props.item) {
+function StoreItem({ item, description }) {
+  if (item) {
     return (
       <React.Fragment>
         <div className="container">
@@ -283,28 +257,23 @@ function StoreItem(props) {
                 <BreadcrumbItem>
                   <Link to="/store">Store</Link>
                 </BreadcrumbItem>
-                <BreadcrumbItem active>{props.item.name}</BreadcrumbItem>
+                <BreadcrumbItem active>{item.name}</BreadcrumbItem>
               </Breadcrumb>
-              <h2 className="d-flex justify-content-center">{props.item.name}</h2>
+              <h2 className="d-flex justify-content-center">{item.name}</h2>
               <hr />
             </div>
           </div>
           <div className="row">
-            <RenderItem item={props.item} />
-            <RenderDescription
-              description={props.description} 
-            />
-            <RenderReviews 
-              reviews={props.reviews} 
-              addReview={props.addReview}
-              itemId={props.item.id}
-            />
+            <RenderItem item={item} />
+            <RenderDescription description={description} />
+            <PostReview />
+            <CartModal item={item} />
           </div>
         </div>
       </React.Fragment>
     );
   }
-
+  return <div />;
 }
 
 export default StoreItem;
