@@ -37,15 +37,25 @@ class PostReview extends Component {
         lastName: false,
         email: false,
       },
-      isModalOpen: false
+      isReviewModalOpen: false,
+      isCartModalOpen: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleReviewModal = this.toggleReviewModal.bind(this);
+    this.toggleCartModal = this.toggleCartModal.bind(this);
+  }
+
+
+
+  toggleCartModal() {
+    this.setState({
+      isCartModalOpen: !this.state.isCartModalOpen
+    });
   }
 
   toggleReviewModal() {
     this.setState({
-      isModalOpen: !this.state.isModalOpen
+      isReviewModalOpen: !this.state.isReviewModalOpen
     });
   }
 
@@ -60,14 +70,21 @@ class PostReview extends Component {
       <div className="container">
         <div className="row">
           <div className="col">
-            <Button color="success">Add To Cart  <i className="fa fa-shopping-cart fa-lg" /></Button>{''}
+            <Button color="success" onClick={this.toggleCartModal}>Add To Cart  <i className="fa fa-shopping-cart fa-lg" /></Button>{''}
           </div>
           <div className="col">
             <Button color="primary" onClick={this.toggleReviewModal}>Leave a Review  <i className="fa fa-comments fa-lg"/></Button>
           </div>
         </div>
       </div>
-      <Modal isOpen={this.state.isModalOpen} toggle={this.toggleReviewModal}>
+      <Modal isOpen={this.state.isCartModalOpen} toggle={this.toggleCartModal}>
+        <ModalHeader toggle={this.toggleCartModal}>Thanks!</ModalHeader>
+        <ModalBody>
+          <Button color="success"><Link to="/cart" style={{ textDecoration: 'none', color: 'white' }}>Go to Cart</Link></Button>{' '}
+          <Button color="primary"><Link to="/store" style={{ textDecoration: 'none', color: 'white' }}>Keep Shopping</Link></Button>
+        </ModalBody>
+      </Modal>
+      <Modal isOpen={this.state.isReviewModalOpen} toggle={this.toggleReviewModal}>
         <ModalHeader toggle={this.toggleReviewModal}>Leave a Review</ModalHeader>
           <ModalBody>
             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
@@ -196,6 +213,16 @@ function RenderItem({ item }) {
   );
 }
 
+function CartModal({ item }) {
+  return (
+    <div className="container">
+      <div className="row">
+        {item.name}
+      </div>
+    </div>
+  )
+}
+
 function RenderDescription({ description }) {
   console.log(description);
   return (
@@ -240,6 +267,7 @@ function StoreItem({ item, description }) {
             <RenderItem item={item} />
             <RenderDescription description={description} />
             <PostReview />
+            <CartModal item={item} />
           </div>
         </div>
       </React.Fragment>
