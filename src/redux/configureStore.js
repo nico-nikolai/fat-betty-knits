@@ -1,11 +1,15 @@
-import { createStore } from 'redux';
-import { Reducer, initialState } from './reducer';
+import { createStore, combineReducers } from 'redux';
+import { Catalog } from './catalog';
+import { Blogs } from './blogs';
+import { Descriptions } from './descriptions';
 
 export const ConfigureStore = () => {
     const store = createStore(
-        Reducer, 
-        initialState
+        combineReducers({
+            catalog: Catalog,
+            blogs: Blogs,
+            descriptions: Descriptions
+        })
     );
-
     return store;
 }
