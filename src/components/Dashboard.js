@@ -15,7 +15,8 @@ const mapStateToProps = state => {
   return {
     catalog: state.catalog,
     blogs: state.blogs,
-    descriptions: state.descriptions
+    descriptions: state.descriptions,
+    reviews: state.reviews
   }
 }
 
@@ -44,6 +45,7 @@ class Dashboard extends Component {
               <StoreItem 
                 item={this.props.catalog.filter(item => item.id === +match.params.itemId)[0]} 
                 description={this.props.descriptions.filter(description => description.id === +match.params.itemId)[0]}
+                reviews={this.props.reviews.filter(review => review.itemId === +match.params.itemId)}
               />
             )
           }

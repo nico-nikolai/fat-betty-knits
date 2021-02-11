@@ -15,7 +15,6 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 
-
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
@@ -45,17 +44,15 @@ class PostReview extends Component {
     this.toggleCartModal = this.toggleCartModal.bind(this);
   }
 
-
-
   toggleCartModal() {
     this.setState({
-      isCartModalOpen: !this.state.isCartModalOpen
+      isCartModalOpen: !this.state.isCartModalOpen,
     });
   }
 
   toggleReviewModal() {
     this.setState({
-      isReviewModalOpen: !this.state.isReviewModalOpen
+      isReviewModalOpen: !this.state.isReviewModalOpen,
     });
   }
 
@@ -67,31 +64,56 @@ class PostReview extends Component {
   render() {
     return (
       <React.Fragment>
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <Button color="success" onClick={this.toggleCartModal}>Add To Cart  <i className="fa fa-shopping-cart fa-lg" /></Button>{''}
-          </div>
-          <div className="col">
-            <Button color="primary" onClick={this.toggleReviewModal}>Leave a Review  <i className="fa fa-comments fa-lg"/></Button>
+        <div className="container">
+          <div className="row">
+            <div className="col">
+              <Button color="success" onClick={this.toggleCartModal}>
+                Add To Cart <i className="fa fa-shopping-cart fa-lg" />
+              </Button>
+              {""}
+            </div>
+            <div className="col">
+              <Button color="primary" onClick={this.toggleReviewModal}>
+                Leave a Review <i className="fa fa-comments fa-lg" />
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
-      <Modal isOpen={this.state.isCartModalOpen} toggle={this.toggleCartModal}>
-        <ModalHeader toggle={this.toggleCartModal}>Thanks!</ModalHeader>
-        <ModalBody>
-          <Button color="success"><Link to="/cart" style={{ textDecoration: 'none', color: 'white' }}>Go to Cart</Link></Button>{' '}
-          <Button color="primary"><Link to="/store" style={{ textDecoration: 'none', color: 'white' }}>Keep Shopping</Link></Button>
-        </ModalBody>
-      </Modal>
-      <Modal isOpen={this.state.isReviewModalOpen} toggle={this.toggleReviewModal}>
-        <ModalHeader toggle={this.toggleReviewModal}>Leave a Review</ModalHeader>
+        <Modal
+          isOpen={this.state.isCartModalOpen}
+          toggle={this.toggleCartModal}
+        >
+          <ModalHeader toggle={this.toggleCartModal}>Thanks!</ModalHeader>
+          <ModalBody>
+            <Button color="success">
+              <Link
+                to="/cart"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Go to Cart
+              </Link>
+            </Button>{" "}
+            <Button color="primary">
+              <Link
+                to="/store"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                Keep Shopping
+              </Link>
+            </Button>
+          </ModalBody>
+        </Modal>
+        <Modal
+          isOpen={this.state.isReviewModalOpen}
+          toggle={this.toggleReviewModal}
+        >
+          <ModalHeader toggle={this.toggleReviewModal}>
+            Leave a Review
+          </ModalHeader>
           <ModalBody>
             <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
               <div className="form-group">
-                <Label htmlFor="rating">
-                  Please Rate from 1-5
-                </Label>
+                <Label htmlFor="rating">Please Rate from 1-5</Label>
                 <Control.select
                   model=".rating"
                   id="rating"
@@ -157,27 +179,27 @@ class PostReview extends Component {
                 />
               </div>
               <div className="form-group">
-                  <Control.text
-                    model=".email"
-                    className="form-control"
-                    id="email"
-                    name="email"
-                    placeholder="Email"
-                    validators={{
-                      required,
-                      validEmail,
-                    }}
-                  />
-                  <Errors
-                    className="text-danger"
-                    model=".email"
-                    show="touched"
-                    component="div"
-                    messages={{
-                      required: "Required",
-                      validEmail: "Invalid email address"
-                    }}
-                  />
+                <Control.text
+                  model=".email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="Email"
+                  validators={{
+                    required,
+                    validEmail,
+                  }}
+                />
+                <Errors
+                  className="text-danger"
+                  model=".email"
+                  show="touched"
+                  component="div"
+                  messages={{
+                    required: "Required",
+                    validEmail: "Invalid email address",
+                  }}
+                />
               </div>
               <div className="form-group">
                 <Control.textarea
@@ -189,7 +211,14 @@ class PostReview extends Component {
                   className="form-control"
                 />
               </div>
-              <Button type="submit" value="submit" color="primary" onClick={this.toggleReviewModal}>Post Review</Button>
+              <Button
+                type="submit"
+                value="submit"
+                color="primary"
+                onClick={this.toggleReviewModal}
+              >
+                Post Review
+              </Button>
             </LocalForm>
           </ModalBody>
         </Modal>
@@ -206,22 +235,21 @@ function RenderItem({ item }) {
         <CardImg top src={"/" + item.image} alt={item.name} />
         <CardBody>
           <CardText>{item.description}</CardText>
-
         </CardBody>
       </Card>
     </div>
   );
 }
 
-function CartModal({ item }) {
-  return (
-    <div className="container">
-      <div className="row">
-        {item.name}
-      </div>
-    </div>
-  )
-}
+// function CartModal({ item }) {
+//   return (
+//     <div className="container">
+//       <div className="row">
+//         {item.name}
+//       </div>
+//     </div>
+//   )
+// }
 
 function RenderDescription({ description }) {
   console.log(description);
@@ -243,7 +271,33 @@ function RenderDescription({ description }) {
     </div>
   );
 }
-function StoreItem({ item, description }) {
+
+function RenderReviews({ reviews }) {
+  if (reviews) {
+    return (
+      <div className="col-md-5 m-1">
+        <h4>Reviews</h4>
+        {reviews.map((review) => (
+          <div key={review.id}>
+            {review.text}
+            <p>
+              {" "}
+              -- {review.author}
+              {", "}
+              {new Intl.DateTimeFormat("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+              }).format(new Date(Date.parse(review.date)))}
+            </p>
+          </div>
+        ))}
+        <PostReview />
+      </div>
+    );
+  }
+}
+function StoreItem({ item, description, reviews }) {
   if (item) {
     return (
       <React.Fragment>
@@ -266,8 +320,8 @@ function StoreItem({ item, description }) {
           <div className="row">
             <RenderItem item={item} />
             <RenderDescription description={description} />
-            <PostReview />
-            <CartModal item={item} />
+            
+            <RenderReviews reviews={reviews} />
           </div>
         </div>
       </React.Fragment>
