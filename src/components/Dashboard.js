@@ -10,6 +10,7 @@ import StoreItem from './StoreItem';
 import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { addReview } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -20,6 +21,9 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = {
+  addReview: (itemId, rating, text, firstName, lastName, email) => (addReview(itemId, rating, text, firstName, lastName, email))
+};
 class Dashboard extends Component {
 
       render() {
@@ -46,6 +50,7 @@ class Dashboard extends Component {
                 item={this.props.catalog.filter(item => item.id === +match.params.itemId)[0]} 
                 description={this.props.descriptions.filter(description => description.id === +match.params.itemId)[0]}
                 reviews={this.props.reviews.filter(review => review.itemId === +match.params.itemId)}
+                addReview={this.props.addReview}
               />
             )
           }
@@ -69,4 +74,4 @@ class Dashboard extends Component {
       }
 }
 
-export default withRouter(connect(mapStateToProps)(Dashboard));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

@@ -99,9 +99,9 @@ class PostReview extends Component {
   }
 
   handleSubmit(values) {
-    console.log("Current state is: " + JSON.stringify(values));
-    alert("Current state is: " + JSON.stringify(values));
     this.toggleReviewModal();
+    this.props.addReview(this.props.itemId, values.rating, values.text, values.firstName, values.lastName, values.email)
+    console.log('Current state is: ' + JSON.stringify(values))
   }
 
   render() {
@@ -218,9 +218,9 @@ class PostReview extends Component {
               </div>
               <div className="form-group">
                 <Control.textarea
-                  model=".review"
-                  id="review"
-                  name="review"
+                  model=".text"
+                  id="text"
+                  name="text"
                   placeholder="Your Review"
                   rows="6"
                   className="form-control"
@@ -282,14 +282,14 @@ function RenderDescription({ description }) {
   );
 }
 
-function RenderReviews({ reviews }) {
+function RenderReviews({ reviews, addReview, itemId }) {
   if (reviews) {
     return (
       <div className="col-md-5 m-1">
         <h4>Reviews</h4>
         {reviews.map((review) => (
           <div key={review.id}>
-            {review.text}
+          {review.text}
             <p>
               {" "}
               -- {review.firstName}{' '}{review.lastName}
@@ -302,12 +302,12 @@ function RenderReviews({ reviews }) {
             </p>
           </div>
         ))}
-        <PostReview />
+        <PostReview itemId={itemId} addReview={addReview}/>
       </div>
     );
   }
 }
-function StoreItem({ item, description, reviews }) {
+function StoreItem({ item, description, reviews, addReview }) {
   if (item) {
     return (
       <React.Fragment>
@@ -335,7 +335,11 @@ function StoreItem({ item, description, reviews }) {
             <AddToCart />
           </div>
           <div className="row">
-            <RenderReviews reviews={reviews} />
+            <RenderReviews 
+              reviews={reviews} 
+              addReview={addReview}
+              itemId={item.id}
+            />
           </div>
         </div>
       </React.Fragment>
