@@ -59,6 +59,7 @@ class PostReview extends Component {
   handleSubmit(values) {
     console.log("Current state is: " + JSON.stringify(values));
     alert("Current state is: " + JSON.stringify(values));
+    this.toggleReviewModal();
   }
 
   render() {
@@ -215,7 +216,6 @@ class PostReview extends Component {
                 type="submit"
                 value="submit"
                 color="primary"
-                onClick={this.toggleReviewModal}
               >
                 Post Review
               </Button>
