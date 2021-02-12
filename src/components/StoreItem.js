@@ -21,65 +21,27 @@ const minLength = (len) => (val) => val && val.length >= len;
 const validEmail = (val) =>
   /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
 
-class PostReview extends Component {
+class AddToCart extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      agree: false,
-      review: "",
-      touched: {
-        firstName: false,
-        lastName: false,
-        email: false,
-      },
-      isReviewModalOpen: false,
       isCartModalOpen: false,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.toggleReviewModal = this.toggleReviewModal.bind(this);
     this.toggleCartModal = this.toggleCartModal.bind(this);
   }
-
   toggleCartModal() {
     this.setState({
       isCartModalOpen: !this.state.isCartModalOpen,
     });
   }
-
-  toggleReviewModal() {
-    this.setState({
-      isReviewModalOpen: !this.state.isReviewModalOpen,
-    });
-  }
-
-  handleSubmit(values) {
-    console.log("Current state is: " + JSON.stringify(values));
-    alert("Current state is: " + JSON.stringify(values));
-    this.toggleReviewModal();
-  }
-
   render() {
     return (
-      <React.Fragment>
-        <div className="container">
-          <div className="row">
-            <div className="col">
-              <Button color="success" onClick={this.toggleCartModal}>
-                Add To Cart <i className="fa fa-shopping-cart fa-lg" />
-              </Button>
-              {""}
-            </div>
-            <div className="col">
-              <Button color="primary" onClick={this.toggleReviewModal}>
-                Leave a Review <i className="fa fa-comments fa-lg" />
-              </Button>
-            </div>
-          </div>
-        </div>
+      <div>
+        <Button color="success" onClick={this.toggleCartModal}>
+          Add To Cart <i className="fa fa-shopping-cart fa-lg" />
+        </Button>
+        {""}
         <Modal
           isOpen={this.state.isCartModalOpen}
           toggle={this.toggleCartModal}
@@ -104,6 +66,58 @@ class PostReview extends Component {
             </Button>
           </ModalBody>
         </Modal>
+      </div>
+    );
+  }
+}
+
+class PostReview extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      agree: false,
+      review: "",
+      touched: {
+        firstName: false,
+        lastName: false,
+        email: false,
+      },
+      isReviewModalOpen: false,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleReviewModal = this.toggleReviewModal.bind(this);
+  }
+
+  toggleReviewModal() {
+    this.setState({
+      isReviewModalOpen: !this.state.isReviewModalOpen,
+    });
+  }
+
+  handleSubmit(values) {
+    console.log("Current state is: " + JSON.stringify(values));
+    alert("Current state is: " + JSON.stringify(values));
+    this.toggleReviewModal();
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <div className="container">
+          <div className="row">
+            <div className="col"></div>
+            <div className="col">
+              <Button color="primary" onClick={this.toggleReviewModal}>
+                Leave a Review <i className="fa fa-comments fa-lg" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
         <Modal
           isOpen={this.state.isReviewModalOpen}
           toggle={this.toggleReviewModal}
@@ -212,11 +226,7 @@ class PostReview extends Component {
                   className="form-control"
                 />
               </div>
-              <Button
-                type="submit"
-                value="submit"
-                color="primary"
-              >
+              <Button type="submit" value="submit" color="primary">
                 Post Review
               </Button>
             </LocalForm>
@@ -282,7 +292,7 @@ function RenderReviews({ reviews }) {
             {review.text}
             <p>
               {" "}
-              -- {review.author}
+              -- {review.firstName}{' '}{review.lastName}
               {", "}
               {new Intl.DateTimeFormat("en-US", {
                 year: "numeric",
@@ -320,7 +330,11 @@ function StoreItem({ item, description, reviews }) {
           <div className="row">
             <RenderItem item={item} />
             <RenderDescription description={description} />
-            
+          </div>
+          <div className="row">
+            <AddToCart />
+          </div>
+          <div className="row">
             <RenderReviews reviews={reviews} />
           </div>
         </div>

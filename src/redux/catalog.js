@@ -1,8 +1,8 @@
-// import { CATALOG } from '../shared/catalog';
+import { CATALOG } from '../shared/catalog';
 
-// export const Catalog = (state = CATALOG, action) => {
-//     switch (action.type) {
-//         default:
-//             return state;
-//     }
-// };
+export const Catalog = (state = CATALOG, action) => {
+    switch (action.type) {
+        default:
+            return state;
+    }
+};

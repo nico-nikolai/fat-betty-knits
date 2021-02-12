@@ -1,8 +1,8 @@
-// import { BLOGS } from '../shared/blogs';
+import { BLOGS } from '../shared/blogs';
 
-// export const Blogs = (state = BLOGS, action) => {
-//     switch (action.type) {
-//         default:
-//             return state;
-//     }
-// };
+export const Blogs = (state = BLOGS, action) => {
+    switch (action.type) {
+        default:
+            return state;
+    }
+};
