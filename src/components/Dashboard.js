@@ -10,7 +10,7 @@ import StoreItem from './StoreItem';
 import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addReview } from '../redux/ActionCreators';
+import { addReview, fetchStore } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -22,17 +22,24 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  addReview: (itemId, rating, text, firstName, lastName, email) => (addReview(itemId, rating, text, firstName, lastName, email))
+  addReview: (itemId, rating, text, firstName, lastName, email) => (addReview(itemId, rating, text, firstName, lastName, email)),
+  fetchStore: () => (fetchStore())
 };
 class Dashboard extends Component {
+
+  componentDidMount() {
+    this.props.fetchStore();
+  }
 
       render() {
 
           const HomePage = () => {
             return (
               <Home 
-                catalog={this.props.catalog.filter(catalog => catalog.featured)[0]}
-                catalogTwo={this.props.catalog.filter(catalog => catalog.featured)[1]}
+                catalog={this.props.catalog.items.filter(catalog => catalog.featured)[0]}
+                storeLoading={this.props.catalog.isLoading}
+                storeErrMess={this.props.catalog.errMess}
+                catalogTwo={this.props.catalog.items.filter(catalog => catalog.featured)[1]}
                 blogs={this.props.blogs.filter(blog => blog.featured)[0]}
               />
             )
@@ -47,7 +54,9 @@ class Dashboard extends Component {
           const StoreWithId = ({match}) => {
             return (
               <StoreItem 
-                item={this.props.catalog.filter(item => item.id === +match.params.itemId)[0]} 
+                item={this.props.catalog.items.filter(item => item.id === +match.params.itemId)[0]}
+                isLoading={this.props.catalog.isLoading}
+                errMess={this.props.catalog.errMess}
                 description={this.props.descriptions.filter(description => description.id === +match.params.itemId)[0]}
                 reviews={this.props.reviews.filter(review => review.itemId === +match.params.itemId)}
                 addReview={this.props.addReview}

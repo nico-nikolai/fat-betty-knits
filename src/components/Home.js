@@ -1,8 +1,15 @@
 import React from 'react';
 import { Card, CardImg, CardBody, CardTitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
-function RenderCard({item}) {
+function RenderCard({item, isLoading, errMess}) {
+    if (isLoading) {
+        return <Loading />
+    }
+    if (errMess) {
+        return <h4>{errMess}</h4>
+    }
     return (
         <React.Fragment>
             <div className="container">
@@ -25,12 +32,20 @@ function Home(props) {
             <div className="row">
                 <div className="col-md-4">
                     <Link to="/store">
-                        <RenderCard item={props.catalog}/>
+                        <RenderCard 
+                            item={props.catalog}
+                            isLoading={props.storeLoading}
+                            errMess={props.storeErrMess}
+                        />
                     </Link>
                 </div>
                 <div className="col-md-4">
                     <Link to="/store">
-                        <RenderCard item={props.catalogTwo}/>
+                        <RenderCard 
+                            item={props.catalogTwo}
+                            isLoading={props.storeLoading}
+                            errMess={props.storeErrMess}
+                        />
                     </Link>
                 </div>
                 <div className="col-md-4">

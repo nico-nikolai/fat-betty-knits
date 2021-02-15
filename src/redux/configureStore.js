@@ -1,4 +1,6 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import { Catalog } from './catalog';
 import { Blogs } from './blogs';
 import { Reviews } from './reviews';
@@ -11,7 +13,8 @@ export const ConfigureStore = () => {
             blogs: Blogs,
             reviews: Reviews,
             descriptions: Descriptions
-        })
+        }),
+        applyMiddleware(thunk, logger)
     );
 
     return store;

@@ -14,6 +14,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { Loading } from './LoadingComponent';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -307,8 +308,28 @@ function RenderReviews({ reviews, addReview, itemId }) {
     );
   }
 }
-function StoreItem({ item, description, reviews, addReview }) {
-  if (item) {
+function StoreItem(props) {
+  if (props.isLoading) {
+    return (
+      <div className="container">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    )
+  }
+  if (props.errMess) {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <h4>{props.errMess}</h4>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  if (props.item) {
     return (
       <React.Fragment>
         <div className="container">
@@ -321,24 +342,24 @@ function StoreItem({ item, description, reviews, addReview }) {
                 <BreadcrumbItem>
                   <Link to="/store">Store</Link>
                 </BreadcrumbItem>
-                <BreadcrumbItem active>{item.name}</BreadcrumbItem>
+                <BreadcrumbItem active>{props.item.name}</BreadcrumbItem>
               </Breadcrumb>
-              <h2 className="d-flex justify-content-center">{item.name}</h2>
+              <h2 className="d-flex justify-content-center">{props.item.name}</h2>
               <hr />
             </div>
           </div>
           <div className="row">
-            <RenderItem item={item} />
-            <RenderDescription description={description} />
+            <RenderItem item={props.item} />
+            <RenderDescription description={props.description} />
           </div>
           <div className="row">
             <AddToCart />
           </div>
           <div className="row">
             <RenderReviews 
-              reviews={reviews} 
-              addReview={addReview}
-              itemId={item.id}
+              reviews={props.reviews} 
+              addReview={props.addReview}
+              itemId={props.item.id}
             />
           </div>
         </div>

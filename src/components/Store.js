@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 
 function RenderStoreItem({item}) {
@@ -18,13 +19,33 @@ function RenderStoreItem({item}) {
 class Store extends Component {
 
     render() {
-        const catalog = this.props.catalog.map(item => {
+        const catalog = this.props.catalog.items.map(item => {
             return (
                 <div key={item.id} className="col-sm-6">
                     <RenderStoreItem item={item} />
                 </div>
             )
-        })
+        });
+
+        if (this.props.catalog.isLoading) {
+            return (
+                <div className="container">
+                    <div className ="row">
+                        <Loading />
+                    </div>
+                </div>
+            )
+        }
+
+        if (this.props.catalog.errMess) {
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h4>{this.props.items.errMess}</h4>
+                    </div>
+                </div>
+            </div>
+        }
         return (
             <div className="container">
                 <div className="row">
