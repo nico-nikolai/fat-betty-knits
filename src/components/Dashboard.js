@@ -10,6 +10,7 @@ import StoreItem from './StoreItem';
 import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 import { addReview, fetchStore } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
@@ -23,7 +24,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   addReview: (itemId, rating, text, firstName, lastName, email) => (addReview(itemId, rating, text, firstName, lastName, email)),
-  fetchStore: () => (fetchStore())
+  fetchStore: () => (fetchStore()),
+  resetFeedbackForm: () => (actions.reset('feedbackForm'))
 };
 class Dashboard extends Component {
 
@@ -74,7 +76,7 @@ class Dashboard extends Component {
                   <Route exact path='/blogs' render={() => <Blogs blogs={this.props.blogs} />} />
                   <Route path='/blogs/:blogId' component={BlogWithId} />
                   <Route path='/store/:itemId' component={StoreWithId} />
-                  <Route exact path="/contact" component={Contact} />
+                  <Route exact path="/contact" render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}/> } />
                   <Redirect to="/home" />
                 </Switch>
                 <Footer />
