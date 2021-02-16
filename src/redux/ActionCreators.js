@@ -18,8 +18,23 @@ export const fetchStore = () => dispatch => {
     dispatch(storeLoading());
 
     return fetch(baseUrl + 'catalog')
+        .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
         .then(response => response.json())
-        .then(items => dispatch(addItems(items)));
+        .then(items => dispatch(addItems(items)))
+        .catch(error => dispatch(storeFailed(error.message)));
 };
 
 export const storeLoading = () => ({
@@ -38,8 +53,23 @@ export const addItems = items => ({
 
 export const fetchReviews = () => dispatch => {
     return fetch(baseUrl + 'reviews')
+        .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
         .then(response => response.json())
-        .then(reviews => dispatch(addReviews(reviews)));
+        .then(reviews => dispatch(addReviews(reviews)))
+        .catch(error => dispatch(reviewsFailed(error.message)));
 }
 
 export const reviewsFailed = errMess => ({
@@ -57,8 +87,23 @@ export const fetchBlogs = () => dispatch => {
     dispatch(blogsLoading());
 
     return fetch(baseUrl + 'blogs')
+        .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                    error.response = response;
+                    throw error;
+                }
+            },
+            error => {
+                const errMess = new Error(error.message);
+                throw errMess;
+            }
+        )
         .then(response => response.json())
-        .then(blogs => dispatch(addBlogs(blogs)));
+        .then(blogs => dispatch(addBlogs(blogs)))
+        .catch(error => dispatch(blogsFailed(error.message)));
 };
 
 export const blogsLoading = () => ({
