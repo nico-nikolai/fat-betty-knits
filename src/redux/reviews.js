@@ -1,13 +1,16 @@
-import { REVIEWS } from '../shared/reviews';
 import * as ActionTypes from './ActionTypes';
 
-export const Reviews = (state = REVIEWS, action) => {
+export const Reviews = (state = { errMess: null, reviews: [] }, action) => {
     switch (action.type) {
+        case ActionTypes.ADD_REVIEWS:
+            return {...state, errMess: null, reviews: action.payload};
+        case ActionTypes.REVIEWS_FAILED:
+            return {...state, errMess: action.payload};
         case ActionTypes.ADD_REVIEW:
             const review = action.payload;
-            review.id = state.length;
+            review.id = state.reviews.length;
             review.date = new Date().toISOString();
-            return state.concat(review);
+            return {...state, reviews: state.reviews.concat(review)};
         default:
             return state;
     }

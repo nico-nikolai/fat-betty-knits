@@ -1,5 +1,5 @@
 import * as ActionTypes from './ActionTypes';
-import { CATALOG } from '../shared/catalog';
+import { baseUrl } from '../shared/baseUrl';
 
 export const addReview = (itemId, rating, text, firstName, lastName, email) => ({
     type: ActionTypes.ADD_REVIEW,
@@ -17,9 +17,9 @@ export const fetchStore = () => dispatch => {
 
     dispatch(storeLoading());
 
-    setTimeout(() => {
-        dispatch(addItems(CATALOG));
-    }, 2000);
+    return fetch(baseUrl + 'catalog')
+        .then(response => response.json())
+        .then(items => dispatch(addItems(items)));
 };
 
 export const storeLoading = () => ({
@@ -34,4 +34,43 @@ export const storeFailed = errMess => ({
 export const addItems = items => ({
     type: ActionTypes.ADD_STORE,
     payload: items
+});
+
+export const fetchReviews = () => dispatch => {
+    return fetch(baseUrl + 'reviews')
+        .then(response => response.json())
+        .then(reviews => dispatch(addReviews(reviews)));
+}
+
+export const reviewsFailed = errMess => ({
+    type: ActionTypes.REVIEWS_FAILED,
+    payload: errMess
+});
+
+export const addReviews = reviews => ({
+    type: ActionTypes.ADD_REVIEWS,
+    payload: reviews
+});
+
+export const fetchBlogs = () => dispatch => {
+
+    dispatch(blogsLoading());
+
+    return fetch(baseUrl + 'blogs')
+        .then(response => response.json())
+        .then(blogs => dispatch(addBlogs(blogs)));
+};
+
+export const blogsLoading = () => ({
+    type: ActionTypes.BLOGS_LOADING
+});
+
+export const blogsFailed = errMess => ({
+    type: ActionTypes.BLOGS_FAILED,
+    payload: errMess
+});
+
+export const addBlogs = blogs => ({
+    type: ActionTypes.ADD_BLOGS,
+    payload: blogs
 });

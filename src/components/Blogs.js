@@ -1,12 +1,13 @@
 import React from "react";
 import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderBlogItem({ blog }) {
   return (
     <Card>
       <Link to={`/blogs/${blog.id}`}>
-        <CardImg width="100%" src={blog.image} alt={blog.name} />
+        <CardImg width="100%" src={baseUrl + blog.image} alt={blog.name} />
         <CardImgOverlay>
           <CardTitle>{blog.name}</CardTitle>
         </CardImgOverlay>

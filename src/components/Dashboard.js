@@ -11,7 +11,7 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { addReview, fetchStore } from '../redux/ActionCreators';
+import { addReview, fetchStore, fetchReviews, fetchBlogs } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -25,12 +25,16 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   addReview: (itemId, rating, text, firstName, lastName, email) => (addReview(itemId, rating, text, firstName, lastName, email)),
   fetchStore: () => (fetchStore()),
-  resetFeedbackForm: () => (actions.reset('feedbackForm'))
+  resetFeedbackForm: () => (actions.reset('feedbackForm')),
+  fetchReviews: () => (fetchReviews()),
+  fetchBlogs: () => (fetchBlogs())
 };
 class Dashboard extends Component {
 
   componentDidMount() {
     this.props.fetchStore();
+    this.props.fetchReviews();
+    this.props.fetchBlogs();
   }
 
       render() {
@@ -39,17 +43,19 @@ class Dashboard extends Component {
             return (
               <Home 
                 catalog={this.props.catalog.items.filter(catalog => catalog.featured)[0]}
+                catalogTwo={this.props.catalog.items.filter(catalog => catalog.featured)[1]}
                 storeLoading={this.props.catalog.isLoading}
                 storeErrMess={this.props.catalog.errMess}
-                catalogTwo={this.props.catalog.items.filter(catalog => catalog.featured)[1]}
-                blogs={this.props.blogs.filter(blog => blog.featured)[0]}
+                blogs={this.props.blogs.blogs.filter(blog => blog.featured)[0]}
+                blogLoading={this.props.blogs.isLoading}
+                blogErrMess={this.props.blogs.errMess}
               />
             )
           }
 
           const BlogWithId = ({match}) => {
             return (
-              <BlogInfo blog={this.props.blogs.filter(blog => blog.id === +match.params.blogId)[0]} />
+              <BlogInfo blog={this.props.blogs.blogs.filter(blog => blog.id === +match.params.blogId)[0]} />
             )
           }
 
@@ -60,7 +66,8 @@ class Dashboard extends Component {
                 isLoading={this.props.catalog.isLoading}
                 errMess={this.props.catalog.errMess}
                 description={this.props.descriptions.filter(description => description.id === +match.params.itemId)[0]}
-                reviews={this.props.reviews.filter(review => review.itemId === +match.params.itemId)}
+                reviews={this.props.reviews.reviews.filter(review => review.itemId === +match.params.itemId)}
+                reviewsErrMess={this.props.reviews.errMess}
                 addReview={this.props.addReview}
               />
             )
@@ -73,7 +80,7 @@ class Dashboard extends Component {
                   <Route path="/home" component={HomePage} />
                   <Route exact path="/our-story" component={OurStory} />
                   <Route exact path="/store" render={() => <Store catalog={this.props.catalog} />} />
-                  <Route exact path='/blogs' render={() => <Blogs blogs={this.props.blogs} />} />
+                  <Route exact path='/blogs' render={() => <Blogs blogs={this.props.blogs.blogs} />} />
                   <Route path='/blogs/:blogId' component={BlogWithId} />
                   <Route path='/store/:itemId' component={StoreWithId} />
                   <Route exact path="/contact" render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}/> } />

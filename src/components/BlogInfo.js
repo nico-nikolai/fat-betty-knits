@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Card, CardImg, CardBody, CardText } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from '../shared/baseUrl';
 
 
     function RenderBlog({blog}) {
@@ -8,7 +9,7 @@ import { Link } from 'react-router-dom';
         return (
             <div className="col-sm-4">
                 <Card>
-                    <CardImg top src={"/" + blog.image} alt={blog.name} />
+                    <CardImg top src={baseUrl + "/" + blog.image} alt={blog.name} />
                     <CardBody>
                         <CardText>{blog.description}</CardText>
                         <Button>Read On!</Button>

@@ -15,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -243,7 +244,7 @@ function RenderItem({ item }) {
   return (
     <div className="col-sm-6 m-1">
       <Card>
-        <CardImg top src={"/" + item.image} alt={item.name} />
+        <CardImg top src={baseUrl + "/" + item.image} alt={item.name} />
         <CardBody>
           <CardText>{item.description}</CardText>
         </CardBody>

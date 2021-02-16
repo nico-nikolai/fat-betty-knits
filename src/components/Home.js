@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardBody, CardTitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderCard({item, isLoading, errMess}) {
     if (isLoading) {
@@ -15,7 +16,7 @@ function RenderCard({item, isLoading, errMess}) {
             <div className="container">
                 <Card>
                     <h2 className="d-flex justify-content-center">Featured {item.type}</h2>
-                    <CardImg src={item.image} alt={item.name} />
+                    <CardImg src={baseUrl + item.image} alt={item.name} />
                     <CardBody>
                         <CardTitle>{item.name}</CardTitle>
                         <CardBody>{item.description}</CardBody>
@@ -50,7 +51,11 @@ function Home(props) {
                 </div>
                 <div className="col-md-4">
                     <Link to="/blogs">
-                        <RenderCard item={props.blogs}/>
+                        <RenderCard 
+                            item={props.blogs}
+                            isLoading={props.blogLoading}
+                            errMess={props.blogErrMess}
+                        />
                     </Link>
                 </div>
             </div>
