@@ -102,7 +102,7 @@ class PostReview extends Component {
 
   handleSubmit(values) {
     this.toggleReviewModal();
-    this.props.addReview(this.props.itemId, values.rating, values.text, values.firstName, values.lastName, values.email)
+    this.props.postReview(this.props.itemId, values.rating, values.text, values.firstName, values.lastName, values.email)
     console.log('Current state is: ' + JSON.stringify(values))
   }
 
@@ -284,7 +284,7 @@ function RenderDescription({ description }) {
   );
 }
 
-function RenderReviews({ reviews, addReview, itemId }) {
+function RenderReviews({ reviews, postReview, itemId }) {
   if (reviews) {
     return (
       <div className="col-md-5 m-1">
@@ -304,7 +304,7 @@ function RenderReviews({ reviews, addReview, itemId }) {
             </p>
           </div>
         ))}
-        <PostReview itemId={itemId} addReview={addReview}/>
+        <PostReview itemId={itemId} postReview={postReview}/>
       </div>
     );
   }
@@ -359,7 +359,7 @@ function StoreItem(props) {
           <div className="row">
             <RenderReviews 
               reviews={props.reviews} 
-              addReview={props.addReview}
+              postReview={props.postReview}
               itemId={props.item.id}
             />
           </div>

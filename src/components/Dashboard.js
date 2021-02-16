@@ -11,7 +11,7 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { addReview, fetchStore, fetchReviews, fetchBlogs } from '../redux/ActionCreators';
+import { postReview, fetchStore, fetchReviews, fetchBlogs } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -23,7 +23,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  addReview: (itemId, rating, text, firstName, lastName, email) => (addReview(itemId, rating, text, firstName, lastName, email)),
+  postReview: (itemId, rating, text, firstName, lastName, email) => (postReview(itemId, rating, text, firstName, lastName, email)),
   fetchStore: () => (fetchStore()),
   resetFeedbackForm: () => (actions.reset('feedbackForm')),
   fetchReviews: () => (fetchReviews()),
@@ -68,7 +68,7 @@ class Dashboard extends Component {
                 description={this.props.descriptions.filter(description => description.id === +match.params.itemId)[0]}
                 reviews={this.props.reviews.reviews.filter(review => review.itemId === +match.params.itemId)}
                 reviewsErrMess={this.props.reviews.errMess}
-                addReview={this.props.addReview}
+                postReview={this.props.postReview}
               />
             )
           }
