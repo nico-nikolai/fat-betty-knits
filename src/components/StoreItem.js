@@ -32,11 +32,14 @@ class AddToCart extends Component {
     };
     this.toggleCartModal = this.toggleCartModal.bind(this);
   }
-  toggleCartModal() {
+
+  toggleCartModal(id) {
+    this.props.addToCart(id)
     this.setState({
       isCartModalOpen: !this.state.isCartModalOpen,
     });
   }
+
   render() {
     return (
       <div>
@@ -50,6 +53,8 @@ class AddToCart extends Component {
         >
           <ModalHeader toggle={this.toggleCartModal}>Thanks!</ModalHeader>
           <ModalBody>
+            <img src={baseUrl + "/" + this.props.item.image} alt={this.props.item.name} />
+            <p>{this.props.item.name}</p>
             <Button color="success">
               <Link
                 to="/cart"
@@ -354,7 +359,7 @@ function StoreItem(props) {
             <RenderDescription description={props.description} />
           </div>
           <div className="row">
-            <AddToCart />
+            <AddToCart addToCart={props.addToCart} item={props.item}/>
           </div>
           <div className="row">
             <RenderReviews 

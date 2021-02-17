@@ -11,14 +11,14 @@ import Footer from './Footer';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
-import { postReview, fetchStore, fetchReviews, fetchBlogs } from '../redux/ActionCreators';
+import { postReview, fetchStore, fetchReviews, fetchBlogs, addToCart } from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
     catalog: state.catalog,
     blogs: state.blogs,
     descriptions: state.descriptions,
-    reviews: state.reviews
+    reviews: state.reviews,
   }
 }
 
@@ -27,7 +27,8 @@ const mapDispatchToProps = {
   fetchStore: () => (fetchStore()),
   resetFeedbackForm: () => (actions.reset('feedbackForm')),
   fetchReviews: () => (fetchReviews()),
-  fetchBlogs: () => (fetchBlogs())
+  fetchBlogs: () => (fetchBlogs()),
+  addToCart: (id) => (addToCart(id))
 };
 class Dashboard extends Component {
 
@@ -69,6 +70,7 @@ class Dashboard extends Component {
                 reviews={this.props.reviews.reviews.filter(review => review.itemId === +match.params.itemId)}
                 reviewsErrMess={this.props.reviews.errMess}
                 postReview={this.props.postReview}
+                addToCart={this.props.addToCart}
               />
             )
           }

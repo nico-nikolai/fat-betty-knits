@@ -84,6 +84,12 @@ class Header extends Component {
                     Contact Us
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink className="nav-link" to="/cart">
+                    <i className="fa fa-shopping-cart fa-lg" />
+                    Your Cart
+                  </NavLink>
+                </NavItem>
               </Nav>
             </Collapse>
           </div>

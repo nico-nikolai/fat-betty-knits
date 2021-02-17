@@ -7,6 +7,7 @@ import { Blogs } from './blogs';
 import { Reviews } from './reviews';
 import { Descriptions } from './descriptions';
 import { InitialFeedback } from './forms';
+import Cart from './cart';
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -15,6 +16,7 @@ export const ConfigureStore = () => {
             blogs: Blogs,
             reviews: Reviews,
             descriptions: Descriptions,
+            cart: Cart,
             ...createForms({
                 feedbackForm: InitialFeedback
             })

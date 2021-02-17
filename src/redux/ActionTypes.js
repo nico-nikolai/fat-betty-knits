@@ -7,3 +7,7 @@ export const REVIEWS_FAILED = 'REVIEWS_FAILED';
 export const BLOGS_LOADING = 'BLOGS_LOADING';
 export const ADD_BLOGS = 'ADD_BLOGS';
 export const BLOGS_FAILED = 'BLOGS_FAILED';
+// export const CART_LOADING = 'CART_LOADING';
+export const ADD_TO_CART = 'ADD_TO_CART';
+// export const ADD_CART_FAILED = 'ADD_CART_FAILED';
+// export const DELETE_CART = 'DELETE_CART';

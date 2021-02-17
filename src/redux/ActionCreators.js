@@ -152,3 +152,10 @@ export const addBlogs = blogs => ({
     type: ActionTypes.ADD_BLOGS,
     payload: blogs
 });
+
+export const addToCart = (id) => dispatch => {
+    return {
+        type: ActionTypes.ADD_TO_CART,
+        id
+    }
+}

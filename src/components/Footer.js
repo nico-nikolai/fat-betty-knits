@@ -24,6 +24,9 @@ function Footer(props) {
               <li>
                 <Link to="/contact">Contact Us</Link>
               </li>
+              <li>
+                <Link to="/cart">Your Cart</Link>
+              </li>
             </ul>
           </div>
           <div className="col-6 col-sm-3 text-center offset-1">
